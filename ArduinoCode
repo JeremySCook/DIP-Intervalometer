@@ -1,0 +1,44 @@
+DIP Switch Intervalometer
+By Jeremy S. Cook
+
+int DIP9 = 0;
+int DIP10 = 0;
+int DIP11 = 0;
+int DIP12 = 0;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(3, OUTPUT); //Pin 3 triggers camera via optop-isolator
+  pinMode(LED_BUILTIN, OUTPUT); //Output to LED for testing - optional
+
+  pinMode(9, INPUT_PULLUP); //5 second input (pullups result in switch on = low)
+  pinMode(10, INPUT_PULLUP); //10 second input
+  pinMode(11, INPUT_PULLUP); //30 second input
+  pinMode(12, INPUT_PULLUP); //60 second input
+}
+
+// the loop function runs over and over again forever
+void loop() {
+  DIP9 = digitalRead(9);
+  DIP10 = digitalRead(10);
+  DIP11 = digitalRead(11);
+  DIP12 = digitalRead(12);
+  
+  Serial.println(DIP9);
+  Serial.println(DIP10);
+  Serial.println(DIP11);
+  Serial.println(DIP12);
+
+  if (DIP9 == LOW || DIP10 == LOW || DIP11 == LOW || DIP12 == LOW){
+    digitalWrite(3, HIGH);
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(100);
+    digitalWrite(3, LOW);
+    digitalWrite(LED_BUILTIN, LOW); //LED may be omitted if expedient (low light, etc)
+  }
+  if (DIP9 == LOW) delay(5000); //5 second delay
+  if (DIP10 == LOW) delay(10000); //10 second delay
+  if (DIP11 == LOW) delay(30000); //30 second delay
+  if (DIP12 == LOW) delay(50000); //60 second delay
+  //note delay values do not account for 100ms trigger delay
+}
