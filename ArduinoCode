@@ -39,6 +39,6 @@ void loop() {
   if (DIP9 == LOW) delay(5000); //5 second delay
   if (DIP10 == LOW) delay(10000); //10 second delay
   if (DIP11 == LOW) delay(30000); //30 second delay
-  if (DIP12 == LOW) delay(50000); //60 second delay
+  if (DIP12 == LOW) delay(60000); //60 second delay
   //note delay values do not account for 100ms trigger delay
 }
